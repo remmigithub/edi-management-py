@@ -1,0 +1,47 @@
+{% extends 'shop/basic.html' %}
+
+{% block title%} About Us{% endblock %}
+{% block body %}
+
+<style type="text/css">
+    img{
+    width: 10px;
+    height: 300px;
+    padding: 10px;
+    margin: 10px;
+  }
+</style>
+<div class="container">
+<div class="row">
+{% for i in products %}
+ <div class="col-xs-3 col-sm-3 col-md-3">
+                        <div class="card align-items-center" style="width: 18rem;">
+                            <img src='/media/{{i.image}}' class="card-img-top " alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title" id="namepr{{i.id}}">{{i.product_name}}</h5>
+                                <p id="pricepr{{i.id}}">{{i.price}}</p>
+                                <p class="card-text">{{i.desc|slice:"0:53"}}...</p>
+                                
+                                {% if i.cart %}
+                                <a href="/shop/update_cart/{{i.id}}/minus"><button id='minus" + item + "' class='btn btn-primary minus'>-</button> </a>
+                                <span>{{i.qty}}</span> 
+                               <a href="/shop/update_cart/{{i.id}}/plus"> <button id='plus" + item + "' class='btn btn-primary plus'> + </button></a>
+
+                                {% else %}
+                                <span id="divpr{{i.id}}" class="divpr">
+                                    <a href="{% url 'shop:add_cart' i.id %}"><button id="pr{{i.id}}" class="btn btn-primary cart" >Add To Cart</button></a>
+                                </span>
+                                {% endif %}
+
+ 
+
+
+                                <a href="/shop/products/{{i.id}}"><button id="qv{{i.id}}" class="btn btn-primary cart">QuickView</button></a>
+                            </div>
+                        </div>
+                    </div>
+{% endfor %}
+</div>
+</div>
+
+{% endblock %}
